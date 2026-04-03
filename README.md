@@ -36,3 +36,4 @@ node src/index.js --input signatures.json
 ## Output
 
 The tool computes MSB distribution of recovered nonces and flags significant deviations from uniform distribution. If bias is detected, the signatures may be vulnerable to lattice-based key recovery using LLL/BKZ algorithms.
+
