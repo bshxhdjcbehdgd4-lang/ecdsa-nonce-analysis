@@ -30,3 +30,4 @@ for (let i = 0; i < N; i++) {
 console.log(`Test 3: Nonce distribution check - ${biased}/${N} biased (expected ~${Math.round(N/16)})`);
 
 console.log("\nAll tests passed.");
+
