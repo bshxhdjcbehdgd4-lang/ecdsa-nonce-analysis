@@ -198,3 +198,4 @@ async function main() {
 
 main().catch(console.error);
 // v1.0
+// stable
